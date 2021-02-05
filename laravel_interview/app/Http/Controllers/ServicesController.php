@@ -15,7 +15,9 @@ class ServicesController extends Controller
     public function index()
     {
         //
-        return view("pages.service");
+        $services = Services::where('user_id', auth()->user()->id);
+        return view("pages.services", ["services"=>$services->get()]);
+        
     }
 
     /**
@@ -26,6 +28,9 @@ class ServicesController extends Controller
     public function create()
     {
         //
+        return view("pages.services.create", []);
+
+
     }
 
     /**
@@ -37,6 +42,18 @@ class ServicesController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
+        $file = $request->file('file-upload-image');
+        $fields = $request->only(['title', 'description']);
+        $fields["user_id"] = auth()->user()->id;
+        //dd($fields);
+        $service = Services::firstOrNew($fields);
+        $service->save();
+        $path = $file->storeAs('images', 'service_'.$service->id.'.jpg');
+        $service->image_url = $path;
+        $service->save();
+        
+        return redirect("services");
     }
 
     /**
@@ -45,9 +62,12 @@ class ServicesController extends Controller
      * @param  \App\Models\Services  $services
      * @return \Illuminate\Http\Response
      */
-    public function show(Services $services)
+    public function show($id)
     {
         //
+        //$service = Services::find($id); 
+        //dd($id);
+        return view("pages.service", ["service"=>Services::find($id)]);
     }
 
     /**

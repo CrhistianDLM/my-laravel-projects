@@ -19,9 +19,12 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+
             $table->string("title");
             $table->longText("description");
-            $table->string("image_url");
+            $table->string("image_url")->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
