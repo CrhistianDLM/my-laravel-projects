@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +22,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-Route::resource('services', ServicesController::class);
+Route::middleware(['auth'])->group(function () {
+    //
+	Route::resource('chats', ChatController::class);
+	Route::resource('services', ServicesController::class);
+	
+});
+
 require __DIR__.'/auth.php';

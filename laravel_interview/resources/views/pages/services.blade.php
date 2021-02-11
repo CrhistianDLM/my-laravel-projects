@@ -4,6 +4,8 @@
             {{ __('Services') }}
         </h2>
         <a href="{{ route('services.create') }}" class="text-sm text-gray-700 underline">Agregar</a>
+        
+                         
     </x-slot>
 
     <ul>

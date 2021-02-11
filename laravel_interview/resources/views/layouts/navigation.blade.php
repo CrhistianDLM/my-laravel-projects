@@ -44,6 +44,10 @@
                                 {{ __('Logout') }}
                             </x-dropdown-link>
                         </form>
+                         <x-dropdown-link :href="route('services.index')">
+                            Servicios
+                         </x-dropdown-link>
+                    
                     </x-slot>
                 </x-dropdown>
             </div>

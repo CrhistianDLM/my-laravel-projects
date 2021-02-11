@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Services;
+use App\Models\Chat;
 use Illuminate\Http\Request;
 
 class ServicesController extends Controller
@@ -66,7 +67,12 @@ class ServicesController extends Controller
     {
         //
         //$service = Services::find($id); 
+
         //dd($id);
+        if(!empty(request()->chat)){
+            
+            return redirect("chats/".$id);
+        }
         return view("pages.service", ["service"=>Services::find($id)]);
     }
 

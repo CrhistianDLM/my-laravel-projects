@@ -20,7 +20,9 @@ class CreateChatsTable extends Migration
             $table->unsignedBigInteger('autor_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('write_by');
+            $table->longText('message');
             $table->enum('status', ['SENDING', 'READING']);
+            $table->enum('type', ['TEXT', 'IMAGE', 'AUDIO']);
 
             $table->foreign('service_id')->references('id')->on('services');
             $table->foreign('autor_id')->references('id')->on('users');
