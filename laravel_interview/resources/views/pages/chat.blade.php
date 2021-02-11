@@ -19,24 +19,38 @@
                 </li>
             @endif
             @foreach($chat as $message)
+                @if($message->type == "IMAGE")
+                    <li class="px-2 pb-2  {{!empty($message->partner) ? 'pt-2':''}}">
+                       <div class="flex {{$message->write_by == $autor_id ? 'justify-start':'justify-end'}}">
+                           <div class="w-40">
+                                <img src="{{asset($message->message)}}" class="w-full">
+                           </div>
+                       </div>
+                    </li>
+                @else
                 <li class="p-2 mt-2 {{$message->write_by == $autor_id ? $leftStyles:$rightStyle}}">
                     <span class="font-bold">
                         {{$message->write_by == $autor_id ? 'A':'B'}}                        
                     </span>
-                     - {{$message->message}}</li>
+                     - {{$message->message}}
+                 </li>
+                 @endif
             @endforeach
             
         </ul>
         <form method="POST" action="{{route('chats.store')}}" class="grid grid-cols-3 gap-4" enctype="multipart/form-data">
             @csrf
-            <input type="text" name="message" class="col-span-2 rounded">
+            <input type="text" name="message" id="message" class="col-span-2 rounded">
             <input type="hidden" name="service_id" value='{{$service_id}}'>
             <input type="hidden" name="client_id" value='{{$client_id}}'>
             <div>
-                <input type="file" name="message_file" value="Archivo">
-            <x-button class="justify-center">
-             {{ __('Enviar') }}
-            </x-button>
+                <label for="message_file" class="px-2 bg-blue-500 rounded text-indigo-50">
+                    Subir Archivo
+                </label>
+                <input type="file" name="message_file" id="message_file" class="hidden">
+                <x-button class="justify-center">
+                 {{ __('Enviar') }}
+                </x-button>
             </div>
         </form>
     </div>

@@ -33,4 +33,10 @@
             </main>
         </div>
     </body>
+
+    <script type="text/javascript">
+        function loadSendFile(){
+            const 
+        }
+    </script>
 </html>

@@ -63,17 +63,48 @@ class ChatController extends Controller
             ])->first();
             $client = empty($chat) ? $request->client_id : $chat->client_id;
         }
+        
+       
+        //return $newChat->id;
+        $id = $this->insertMessage($request);
+        if($path = $this->validateFile($request, $id)){
+            $newChat2 = new Chat();
+            $newChat2->service_id = $request->service_id;
+            $newChat2->autor_id = $service->user_id;
+            $newChat2->client_id = $client;
+            $newChat2->message = $path[0];
+            $newChat2->status = 'SENDING';
+            $newChat2->partner =  $newChat->id;
+            $newChat2->type = ($path[1] == "jpg") ? "IMAGE" : "AUDIO";
+            $newChat2->write_by = auth()->user()->id;
+            $newChat2->save();
+        }
+        return redirect()->back();
+    }
+    private function validateFile(Request $request, $id){
+        $file = $request->file('message_file');
+        if(empty($file)){
+            return false;
+        }
+        $ext = $file->extension();
+        $path = $file->storeAs('message_imgs', 'message_'.$id.'.jpg');
+        return [$path, $ext];
+    }
+    private function insertMessage(Request $request){
+        if(empty($request->message)){
+            return null;
+        }
         $newChat = new Chat();
         $newChat->service_id = $request->service_id;
         $newChat->autor_id = $service->user_id;
         $newChat->client_id = $client;
         $newChat->message = $request->message;
         $newChat->status = 'SENDING';
+        $newChat->type = 'TEXT';
         $newChat->write_by = auth()->user()->id;
         $newChat->save();
-        return redirect()->back();
+        return  $newChat->id;
     }
-
     /**
      * Display the specified resource.
      *
