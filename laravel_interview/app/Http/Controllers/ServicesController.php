@@ -13,6 +13,13 @@ class ServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index2()
+    {
+        //
+        $services = Services::all();
+        return view("pages.services", ["services"=>$services, "noBar" => true]);
+        
+    }
     public function index()
     {
         //

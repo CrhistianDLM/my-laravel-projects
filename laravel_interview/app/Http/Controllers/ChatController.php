@@ -66,7 +66,7 @@ class ChatController extends Controller
         
        
         //return $newChat->id;
-        $id = $this->insertMessage($request);
+        $id = $this->insertMessage($request, $service, $client);
         if($path = $this->validateFile($request, $id)){
             $newChat2 = new Chat();
             $newChat2->service_id = $request->service_id;
@@ -74,7 +74,7 @@ class ChatController extends Controller
             $newChat2->client_id = $client;
             $newChat2->message = $path[0];
             $newChat2->status = 'SENDING';
-            $newChat2->partner =  $newChat->id;
+            $newChat2->partner = empty($newChat) ? null : $newChat->id;
             $newChat2->type = ($path[1] == "jpg") ? "IMAGE" : "AUDIO";
             $newChat2->write_by = auth()->user()->id;
             $newChat2->save();
@@ -90,7 +90,7 @@ class ChatController extends Controller
         $path = $file->storeAs('message_imgs', 'message_'.$id.'.jpg');
         return [$path, $ext];
     }
-    private function insertMessage(Request $request){
+    private function insertMessage(Request $request, $service, $client = null){
         if(empty($request->message)){
             return null;
         }

@@ -3,8 +3,10 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Services') }}
         </h2>
-        <a href="{{ route('services.create') }}" class="text-sm text-gray-700 underline">Agregar</a>
+        @empty($noBar)
         
+        <a href="{{ route('services.create') }}" class="text-sm text-gray-700 underline">Agregar</a>
+        @endempty
                          
     </x-slot>
 

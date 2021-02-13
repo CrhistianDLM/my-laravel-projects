@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     //
 	Route::resource('chats', ChatController::class);
 	Route::resource('services', ServicesController::class);
+	Route::get('all-services', [ServicesController::class, 'index2'])->name("services.all");
 	
 });
 

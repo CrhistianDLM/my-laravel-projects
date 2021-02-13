@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('services.all')" :active="request()->routeIs('services')">
+                        {{ __('Services') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -45,7 +48,7 @@
                             </x-dropdown-link>
                         </form>
                          <x-dropdown-link :href="route('services.index')">
-                            Servicios
+                           Mis Servicios
                          </x-dropdown-link>
                     
                     </x-slot>
