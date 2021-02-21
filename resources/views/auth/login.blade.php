@@ -46,7 +46,7 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/register">
+                <a class="underline text-sm text-white hover:bg-gray-900 bg-gray-600 p-2 rounded mx-2" href="/register">
                         {{ __('Register') }}
                     </a>
                 <x-button class="ml-3">
