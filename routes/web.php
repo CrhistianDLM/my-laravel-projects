@@ -16,7 +16,8 @@ use App\Http\Controllers\ChatController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return redirect("/dashboard");
 });
 
 Route::get('/dashboard', function () {
@@ -27,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('chats', ChatController::class);
 	Route::resource('services', ServicesController::class);
 	Route::get('all-services', [ServicesController::class, 'index2'])->name("services.all");
-	
+
 });
 
 require __DIR__.'/auth.php';
