@@ -18,14 +18,14 @@ class ServicesController extends Controller
         //
         $services = Services::all();
         return view("pages.services", ["services"=>$services, "noBar" => true]);
-        
+
     }
     public function index()
     {
         //
         $services = Services::where('user_id', auth()->user()->id);
         return view("pages.services", ["services"=>$services->get()]);
-        
+
     }
 
     /**
@@ -51,6 +51,11 @@ class ServicesController extends Controller
     {
         //
         //dd($request);
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required|max:255',
+            'file-upload-image' => 'required',
+        ]);
         $file = $request->file('file-upload-image');
         $fields = $request->only(['title', 'description']);
         $fields["user_id"] = auth()->user()->id;
@@ -60,7 +65,7 @@ class ServicesController extends Controller
         $path = $file->storeAs('images', 'service_'.$service->id.'.jpg');
         $service->image_url = $path;
         $service->save();
-        
+
         return redirect("services");
     }
 
@@ -73,11 +78,11 @@ class ServicesController extends Controller
     public function show($id)
     {
         //
-        //$service = Services::find($id); 
+        //$service = Services::find($id);
 
         //dd($id);
         if(!empty(request()->chat)){
-            
+
             return redirect("chats/".$id);
         }
         return view("pages.service", ["service"=>Services::find($id)]);

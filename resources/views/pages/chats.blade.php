@@ -8,7 +8,7 @@
 
     <ul>
         @foreach($chats as $chat)
-            <li>
+            <li class="bg-blue-200 px-3 py-2 mb-2 rounded shadow-lg">
                 <a href="{{route('chats.show', $service_id)."?client=".$chat->client_id}}">with {{$chat->name}}</a>
             </li>
         @endforeach

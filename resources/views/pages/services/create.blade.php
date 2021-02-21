@@ -5,8 +5,17 @@
         </h2>
     </x-slot>
     <div class="md:grid md:grid-cols-6 md:gap-6 p-2">
-    
+
     <div class="mt-5 md:mt-0  md:col-start-2 md:col-span-4">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="bg-red-500 text-white px-3 py-2 mb-2 rounded">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
       <form action="{{route("services.store")}}" method="POST" enctype="multipart/form-data">
          @csrf
         <div class="shadow sm:rounded-md sm:overflow-hidden">
@@ -17,7 +26,7 @@
                   Titulo
                 </label>
                 <div class="mt-1 flex rounded-md shadow-sm">
-                 
+
                   <input type="text" name="title" id="title" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded sm:text-sm border-gray-300" placeholder="lorem ipsum">
                 </div>
               </div>
@@ -30,7 +39,7 @@
               <div class="mt-1">
                 <textarea id="description" name="description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Descripción"></textarea>
               </div>
-         
+
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700">
@@ -54,9 +63,9 @@
                 </div>
               </div>
             </div>
-            
 
-            
+
+
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
